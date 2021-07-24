@@ -68,8 +68,7 @@ public class DatasetWiseLossCurves {
 		replaceNames.put("boomer_binomial_12", "Boomer-12");
 		replaceNames.put("boomer_binomial_13", "Boomer-13");
 
-		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("results.kvstore")));
-		col.addAll(new KVStoreCollection(FileUtils.readFileToString(new File("results_boomer_v3.kvstore"))));
+		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("result-data/results.kvstore")));
 
 		KVStoreCollection filtered = new KVStoreCollection();
 		col.stream().filter(x -> ALGOS.contains(x.getAsString("algorithm")) && DATASETS.contains(x.getAsString("dataset"))).forEach(filtered::add);

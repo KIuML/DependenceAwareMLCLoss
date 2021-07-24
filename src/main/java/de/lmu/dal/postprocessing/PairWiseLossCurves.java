@@ -41,8 +41,7 @@ public class PairWiseLossCurves {
 		replaceNames.put("boomer_label_wise_logistic_loss", "BOOMER-1");
 		replaceNames.put("boomer_example_wise_logistic_loss", "BOOMER-K");
 
-		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("results.kvstore")));
-		col.addAll(new KVStoreCollection(FileUtils.readFileToString(new File("results_boomer_v3.kvstore"))));
+		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("result-data/results.kvstore")));
 		KVStoreCollection filtered = new KVStoreCollection();
 		col.stream().filter(x -> ALGOS.contains(x.getAsString("algorithm")) && DATASETS.contains(x.getAsString("dataset"))).forEach(filtered::add);
 		filtered.stream().forEach(x -> x.put("algorithm", replaceNames.get(x.getAsString("algorithm"))));
@@ -81,13 +80,25 @@ public class PairWiseLossCurves {
 
 			// output the plots as a tickz picture
 			sb.append("\\begin{my}\n");
-			sb.append("\\begin{tikzpicture}\n").append(
-					"\\begin{axis}[xmin=1,xmax=1000,xmode=log,ymin=.5,ymax=1.5,legend pos=outer north east,extra x ticks={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},extra y ticks={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5}, tick style={grid=major},xlabel=")
-					.append((BINOMIAL ? "$k/K$" : "$\\alpha$")).append(",ylabel=").append(col.get(0).getAsString("y")).append("]\n");
+			sb.append("\\begin{tikzpicture}\n").append("\\begin{axis}[");
+
+			if (BINOMIAL) {
+				sb.append("xmin=0,xmax=1,");
+			} else {
+				sb.append("xmin=1,xmax=1000,xmode=log,");
+			}
+
+			sb.append("ymin=.5,ymax=1.5,legend pos=outer north east,extra x ticks={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9},extra y ticks={0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5}, tick style={grid=major},xlabel=")
+					.append((BINOMIAL ? "$\nicefrac{k-1}{K-1}$" : "$\\alpha$")).append(",ylabel=").append(col.get(0).getAsString("y")).append("]\n");
 			for (int i = 0; i < col.size(); i++) {
 				sb.append(storeToPlot(col.get(i), "color" + (i + 1)));
 			}
-			sb.append("\\addplot[mark=none,draw=black] coordinates {\n(1.0,1.0)\n(1000.0,1.0)\n};\n");
+
+			if (BINOMIAL) {
+				sb.append("\\addplot[mark=none,draw=black] coordinates {\n(0.0,1.0)\n(1.0,1.0)\n};\n");
+			} else {
+				sb.append("\\addplot[mark=none,draw=black] coordinates {\n(1.0,1.0)\n(1000.0,1.0)\n};\n");
+			}
 			sb.append("\\legend{};");
 			sb.append("\\end{axis}\n").append("\\end{tikzpicture}\n").append("\\end{my}\n\n");
 		}
@@ -150,8 +161,12 @@ public class PairWiseLossCurves {
 			double oneVal = ValueUtil.round(Double.parseDouble(one.get(i)), 4);
 			double otherVal = ValueUtil.round(Double.parseDouble(other.get(i)), 4);
 
-			double x = (double) (i) / (one.size() - 1);
-			x = GeneralConfig.POLYNOMIAL_SCALES[i];
+			double x;
+			if (BINOMIAL) {
+				x = (double) (i) / (one.size() - 1);
+			} else {
+				x = GeneralConfig.POLYNOMIAL_SCALES[i];
+			}
 
 			sb.append("(").append(x).append(",").append(ValueUtil.round(oneVal / otherVal, 4)).append(")\n");
 		}

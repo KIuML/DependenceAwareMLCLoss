@@ -34,7 +34,7 @@ public class DataToKVStorePreparer {
 	private static final String SIZE_LABEL = "size";
 
 	private static final File INPUT_DIR = new File("out/");
-	private static final File OUTPUT_FILE = new File("results_boomer_v4.kvstore");
+	private static final File OUTPUT_FILE = new File("result-data/results.kvstore");
 
 	class AlgoEntry {
 		private IKVStore store;

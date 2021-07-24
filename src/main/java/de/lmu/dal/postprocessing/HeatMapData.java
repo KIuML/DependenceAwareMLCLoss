@@ -14,7 +14,7 @@ import ai.libs.jaicore.basic.kvstore.KVStoreCollectionOneLayerPartition;
 public class HeatMapData {
 
 	public static void main(final String[] args) throws IOException {
-		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("results_boomer_v4.kvstore")));
+		KVStoreCollection col = new KVStoreCollection(FileUtils.readFileToString(new File("result-data/results_boomer_v4.kvstore")));
 		KVStoreCollectionOneLayerPartition partitions = new KVStoreCollectionOneLayerPartition("dataset", col);
 
 		for (Entry<String, KVStoreCollection> part : partitions) {

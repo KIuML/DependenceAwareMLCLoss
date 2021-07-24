@@ -15,3 +15,12 @@ Executing experiments requires a MySQL database as a backend for organization of
 # Post-Processing Result Data
 
 Running experiments will produce files in ``out/`` containing prediction and ground-truth vectors per instance of the test data set. The respective vectors are stored in terms of ``.arff`` files as suggested by ``meka.core.Evaluation`` from MEKA. For further processing of the data, the arff files need to be parsed into a key-value store format of AILIbs which is done via executing the class ``de.lmu.dal.postprocessing.DataToKVStorePreparer``.
+
+The already processed data (on which the results presented in the paper are based on is provided in the file) is located in the ``result-data/`` directory. This file can be taken as an input to the classes
+* ``de.lmu.dal.postprocessing.DatasetWiseLossCurves``,
+* ``de.lmu.dal.postprocessing.PairWiseLossCurves``,
+* and ``de.lmu.dal.postprocessing.HeatMapData``
+
+# Cite Us
+
+Eyke Hüllermeier, Marcel Wever, Eneldo Loza Mencía, Johannes Fürnkranz, Michael Rapp: *A Flexible Class of Dependence-aware Multi-Label Loss Functions*
