@@ -61,6 +61,7 @@ public class DependenceAwareMLCLossExperimenter implements IExperimentSetEvaluat
 	 * Variables for the experiment and database setup
 	 */
 	private static final File configFile = new File("experimenter.properties");
+
 	private static final IDependenceAwareMLCLossExperimenterConfig m = (IDependenceAwareMLCLossExperimenterConfig) ConfigCache.getOrCreate(IDependenceAwareMLCLossExperimenterConfig.class).loadPropertiesFromFile(configFile);
 	private static final IDatabaseConfig dbconfig = (IDatabaseConfig) ConfigFactory.create(IDatabaseConfig.class).loadPropertiesFromFile(configFile);
 	private static final IExperimentDatabaseHandle dbHandle = new ExperimenterMySQLHandle(dbconfig);

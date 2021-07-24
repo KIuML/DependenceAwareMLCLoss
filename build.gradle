@@ -135,3 +135,16 @@ test {
         showStandardStreams = true
     }
 }
+
+
+task setupExperimenter(type: JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  main = "de.lmu.dal.experimenter.DependenceAwareMLCLossExperimenter"
+  args = ["init"]
+}
+
+task runExperimenter(type: JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  main = "de.lmu.dal.experimenter.DependenceAwareMLCLossExperimenter"
+  args = ["run"]
+}
