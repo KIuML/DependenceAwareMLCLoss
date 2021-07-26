@@ -21,6 +21,6 @@ The already processed data (on which the results presented in the paper are base
 * ``de.lmu.dal.postprocessing.PairWiseLossCurves``,
 * and ``de.lmu.dal.postprocessing.HeatMapData``
 
-# Cite Us
+# Citing
 
-Eyke Hüllermeier, Marcel Wever, Eneldo Loza Mencía, Johannes Fürnkranz, Michael Rapp: *A Flexible Class of Dependence-aware Multi-Label Loss Functions*
+Eyke HÃ¼llermeier, Marcel Wever, Eneldo Loza MencÃ­a, Johannes FÃ¼rnkranz, Michael Rapp: *A Flexible Class of Dependence-aware Multi-Label Loss Functions*
